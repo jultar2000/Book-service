@@ -1,4 +1,6 @@
 Django
 psycopg2-binary
+Pillow
+django-versatileimagefield
 django-environ
 djangorestframework
