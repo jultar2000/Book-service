@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <body>
+        <h2>Thank you for registering at BookService!</h2>
+        <p>To complete registration please click the link below:</p>
+        <a href="http://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Activate account!</a>
+    </body>
+
+{% endblock %}

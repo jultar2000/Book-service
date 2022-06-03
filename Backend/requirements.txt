@@ -5,3 +5,5 @@ django-versatileimagefield
 django-environ
 djangorestframework
 python-magic-bin
+django-utils-six
+graphene_django
