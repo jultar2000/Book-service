@@ -9,8 +9,8 @@ class CustomUser(AbstractUser):
     password = models.CharField(max_length=128, blank=False)
     email = models.EmailField(blank=False)
     is_active = models.BooleanField(default=False, blank=False)
-    first_name = models.CharField(max_length=40, default=None, blank=True)
-    last_name = models.CharField(max_length=40, default=None, blank=True)
+    first_name = models.CharField(max_length=40, default=None, null=True, blank=True)
+    last_name = models.CharField(max_length=40, default=None, null=True, blank=True)
 
 
 class CustomProfile(models.Model):
@@ -19,9 +19,9 @@ class CustomProfile(models.Model):
         FEMALE = 'FEMALE'
 
     custom_user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    birth_date = models.DateField(default=None, blank=True)
-    gender = models.CharField(max_length=6, choices=Gender.choices, default=None)
-    image = VersatileImageField(ppoi_field="image_ppoi")
+    birth_date = models.DateField(default=None, null=True, blank=True)
+    gender = models.CharField(max_length=6, choices=Gender.choices, default=None, null=True, blank=True)
+    image = VersatileImageField(ppoi_field="image_ppoi", default=None, null=True, blank=True)
     image_ppoi = PPOIField()
 
 

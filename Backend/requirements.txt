@@ -4,3 +4,4 @@ Pillow
 django-versatileimagefield
 django-environ
 djangorestframework
+python-magic-bin
