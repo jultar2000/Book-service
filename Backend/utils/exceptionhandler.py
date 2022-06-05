@@ -10,9 +10,9 @@ def custom_exception_handler(exc, context):
 
 
 class CustomApiException(APIException):
-    detail = None
     status_code = None
+    detail = None
 
-    def __init__(self, status_code, message):
+    def __init__(self, message, status_code):
         CustomApiException.status_code = status_code
         CustomApiException.detail = message

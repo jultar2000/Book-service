@@ -1,11 +1,12 @@
+import logging
 from smtplib import SMTPException
 
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate, login
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from accounts.models import account_activation_token
 from utils.exceptionhandler import CustomApiException
 from django.core.mail import send_mail
@@ -24,20 +25,20 @@ def create_user(request):
 
     if password1 and password2:
         if password1 != password2:
-            raise CustomApiException(400, 'Passwords must match')
+            raise CustomApiException('Passwords must match', 400)
         try:
             validate_password(password1)
         except ValidationError as ex:
-            raise CustomApiException(400, ex)
+            raise CustomApiException(ex, 400)
 
     try:
         user = custom_user.objects.create_user(
             username=username,
             email=email,
             password=password1,
-            is_active=False)
+            is_active=True)
     except IntegrityError as ex:
-        raise CustomApiException(400, ex.__cause__.__str__())
+        raise CustomApiException(ex.__cause__.__str__(), 400)
 
     email_template = render_to_string('email.html', {
         'user': username,
@@ -53,6 +54,21 @@ def create_user(request):
     return user
 
 
+def activate_accounts(uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = custom_user.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, custom_user.DoesNotExist) as ex:
+        return CustomApiException(ex, 400)
+
+    if account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        return
+
+    return CustomApiException('Invalid token, token may been already used.', 400)
+
+
 def send_email(subject, message, from_email, recipient, html_message):
     try:
         send_mail(subject=subject,
@@ -62,4 +78,15 @@ def send_email(subject, message, from_email, recipient, html_message):
                   html_message=html_message)
 
     except SMTPException as ex:
-        raise CustomApiException(400, ex)
+        raise CustomApiException(ex, 400)
+
+
+def login_user(request):
+    data = request.data
+    username = data.get('username')
+    password = data.get('password')
+    user = authenticate(username=username, password=password)
+    if user is None:
+        raise CustomApiException({'Invalid credentials': 'cannot login'}, 400)
+    login(request, user)
+    return user
