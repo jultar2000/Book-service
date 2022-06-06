@@ -1,10 +1,12 @@
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from .services import create_user, login_user, activate_accounts
-from .serializers import RegisterUserSerializer, LoginUserSerializer
+from .services import create_user, activate_accounts
+from .serializers import RegisterUserSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import MyTokenObtainPairSerializer
 
 custom_user = get_user_model()
 
@@ -24,9 +26,5 @@ class ActivateAccount(APIView):
         return Response('Account confirmation successful', status=status.HTTP_200_OK)
 
 
-class SignInView(APIView):
-    serializer_class = LoginUserSerializer
-
-    def post(self, request):
-        login_user(request)
-        return Response({'Logging successful!'}, status=status.HTTP_200_OK)
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer

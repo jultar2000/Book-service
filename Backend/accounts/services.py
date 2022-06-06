@@ -79,14 +79,3 @@ def send_email(subject, message, from_email, recipient, html_message):
 
     except SMTPException as ex:
         raise CustomApiException(ex, 400)
-
-
-def login_user(request):
-    data = request.data
-    username = data.get('username')
-    password = data.get('password')
-    user = authenticate(username=username, password=password)
-    if user is None:
-        raise CustomApiException({'Invalid credentials': 'cannot login'}, 400)
-    login(request, user)
-    return user

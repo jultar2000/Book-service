@@ -4,6 +4,11 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils import six
 from django.db import models
 
+GENDER_CHOICES = {
+    ('M', 'MALE'),
+    ('F', 'FEMALE')
+}
+
 
 class CustomUser(AbstractUser):
     username = models.CharField(max_length=40, unique=True, blank=False,
@@ -22,7 +27,7 @@ class CustomProfile(models.Model):
 
     custom_user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     birth_date = models.DateField(default=None, null=True, blank=True)
-    gender = models.CharField(max_length=6, choices=Gender.choices, default=None, null=True, blank=True)
+    gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default=None, null=True, blank=True)
     image = VersatileImageField(ppoi_field="image_ppoi", default=None, null=True, blank=True)
     image_ppoi = PPOIField()
 
