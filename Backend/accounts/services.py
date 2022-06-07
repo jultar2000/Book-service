@@ -1,7 +1,7 @@
 import logging
 from smtplib import SMTPException
 
-from django.contrib.auth import get_user_model, authenticate, login
+from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
@@ -12,6 +12,7 @@ from utils.exceptionhandler import CustomApiException
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
+from rest_framework_simplejwt.tokens import RefreshToken
 
 custom_user = get_user_model()
 
@@ -78,4 +79,13 @@ def send_email(subject, message, from_email, recipient, html_message):
                   html_message=html_message)
 
     except SMTPException as ex:
+        raise CustomApiException(ex, 400)
+
+
+def blacklist_token(data):
+    try:
+        refresh_token = data["refresh_token"]
+        token = RefreshToken(refresh_token)
+        token.blacklist()
+    except Exception as ex:
         raise CustomApiException(ex, 400)

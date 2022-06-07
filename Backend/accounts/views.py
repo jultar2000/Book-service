@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
-from .services import create_user, activate_accounts
+from .services import create_user, activate_accounts, blacklist_token
 from .serializers import RegisterUserSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import MyTokenObtainPairSerializer
@@ -28,3 +28,9 @@ class ActivateAccount(APIView):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
+
+class LogoutView(APIView):
+    def post(self, request):
+        blacklist_token(request.data)
+        return Response('Logout successful', status=status.HTTP_205_RESET_CONTENT)

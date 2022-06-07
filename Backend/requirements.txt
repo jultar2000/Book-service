@@ -8,3 +8,4 @@ python-magic-bin
 django-utils-six
 djangorestframework-simplejwt
 graphene_django
+django-countries
