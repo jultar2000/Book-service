@@ -1,6 +1,5 @@
 from django.urls import path
-from accounts.views import SignUpView, ActivateAccount
-from .views import CustomTokenObtainPairView
+from .views import SignUpView, ActivateAccount, CustomTokenObtainPairView
 
 from rest_framework_simplejwt.views import (
     TokenRefreshView,

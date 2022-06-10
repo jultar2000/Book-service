@@ -1,7 +1,7 @@
 from django.db import models
 from versatileimagefield.fields import VersatileImageField, PPOIField
 
-from accounts.models import GENDER_CHOICES
+from profiles.models import GENDER_CHOICES
 from django_countries.fields import CountryField
 
 

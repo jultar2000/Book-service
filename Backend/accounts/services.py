@@ -1,4 +1,3 @@
-import logging
 from smtplib import SMTPException
 
 from django.contrib.auth import get_user_model

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_countries',
 
     'accounts',
+    'profiles',
     'authors',
     'books',
     'orders'
@@ -58,7 +59,6 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -158,3 +158,12 @@ SIMPLE_JWT = {
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
+
+VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
+    'BASIC_IMAGE_SET': [
+        ('original', 'url'),
+        ('thumbnail200x200', 'thumbnail__200x200')
+    ],
+}
+
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
