@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django_countries',
 
     'accounts',
-    'profiles',
+    'profiles.apps.ProfilesConfig',
     'authors',
     'books',
     'orders'
@@ -140,7 +140,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=100),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -167,3 +167,5 @@ VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
 }
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
+
+USE_L10N = False

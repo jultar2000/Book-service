@@ -6,8 +6,8 @@ from versatileimagefield.serializers import VersatileImageFieldSerializer
 
 
 class UpdateProfileSerializer(serializers.ModelSerializer):
-    image = VersatileImageFieldSerializer(sizes='BASIC_IMAGE_SET')
-    birth_date = serializers.DateField(input_formats=settings.DATE_INPUT_FORMATS)
+    image = VersatileImageFieldSerializer(sizes='BASIC_IMAGE_SET', required=False)
+    birth_date = serializers.DateField(input_formats=settings.DATE_INPUT_FORMATS, required=False)
 
     class Meta:
         model = CustomProfile

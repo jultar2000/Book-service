@@ -14,8 +14,6 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'password1', 'password2')
 
 
-# obj.user -> user.username
-
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):

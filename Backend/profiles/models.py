@@ -3,6 +3,7 @@ from django_countries.fields import CountryField
 from accounts.models import CustomUser
 from django.db import models
 
+
 GENDER_CHOICES = {
     ('M', 'Male'),
     ('F', 'Female')
