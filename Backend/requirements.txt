@@ -9,3 +9,6 @@ django-utils-six
 djangorestframework-simplejwt
 graphene_django
 django-countries
+django-storages
+boto3
+django-extensions

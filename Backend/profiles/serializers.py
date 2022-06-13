@@ -16,3 +16,15 @@ class UpdateProfileSerializer(serializers.ModelSerializer):
                   'birth_date',
                   'gender',
                   'image')
+
+
+class RetrieveUserSerializer(serializers.ModelSerializer):
+    image = VersatileImageFieldSerializer(sizes='BASIC_IMAGE_SET')
+
+    class Meta:
+        model = CustomProfile
+        fields = ('first_name',
+                  'last_name',
+                  'birth_date',
+                  'gender',
+                  'image')

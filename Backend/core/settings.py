@@ -39,11 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'django_extensions',
     'rest_framework_simplejwt.token_blacklist',
     'django_countries',
+    'versatileimagefield',
+    'storages',
+
+    'profiles.apps.ProfilesConfig',
 
     'accounts',
-    'profiles.apps.ProfilesConfig',
     'authors',
     'books',
     'orders'
@@ -139,6 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Custom auth user
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+# JWT CONFIG
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=100),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
@@ -159,12 +164,23 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
 
+# VERSATILE CONFIG
 VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
     'BASIC_IMAGE_SET': [
         ('original', 'url'),
         ('thumbnail200x200', 'thumbnail__200x200')
     ],
 }
+
+# S3 BUCKETS CONFIG
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# DATE FORMAT
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 

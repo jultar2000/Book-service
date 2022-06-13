@@ -1,6 +1,11 @@
-from django.urls import path
-from .views import UpdateProfileView
+from django.urls import path, include
+from rest_framework.routers import SimpleRouter
+from .views import ProfileViewSet
+
+# router = SimpleRouter()
+# router.register(r'profile', ProfileViewSet, basename='profile')
 
 urlpatterns = [
-    path('update-profile/', UpdateProfileView.as_view(), name='update-profile'),
+    # path('', include(router.urls)),
+    path('profile/', ProfileViewSet.as_view())
 ]
