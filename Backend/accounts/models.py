@@ -5,11 +5,10 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-    username = models.CharField(max_length=40, unique=True, blank=False,
-                                help_text="Username is needed, 40 characters or fewer.")
-    password = models.CharField(max_length=128, blank=False)
-    email = models.EmailField(unique=True, blank=False)
-    is_active = models.BooleanField(default=False, blank=False)
+    username = models.CharField(max_length=40, unique=True)
+    password = models.CharField(max_length=128)
+    email = models.EmailField(unique=True)
+    is_active = models.BooleanField(default=False)
 
 
 class TokenGenerator(PasswordResetTokenGenerator):

@@ -12,12 +12,14 @@ custom_user = get_user_model()
 
 
 class SignUpView(CreateAPIView):
-    serializer_class = RegisterUserSerializer
 
     def post(self, request, *args, **kwargs):
-        create_user(request)
-        return Response({'Successful registration': 'Please confirm your email to complete registration.'},
-                        status=status.HTTP_201_CREATED)
+        serializer = RegisterUserSerializer(data=request.data)
+        if serializer.is_valid():
+            create_user(request)
+            return Response({'Successful registration': 'Please confirm your email to complete registration.'},
+                            status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ActivateAccount(APIView):
