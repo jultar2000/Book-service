@@ -2,7 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import RetrieveUpdateAPIView
 
 from .models import CustomProfile
-from .serializers import UpdateProfileSerializer, RetrieveUserSerializer
+from .serializers import UpdateProfileSerializer, RetrieveProfileSerializer
 from .services import update_profile
 from rest_framework.response import Response
 from rest_framework import status
@@ -20,5 +20,5 @@ class ProfileViewSet(RetrieveUpdateAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         custom_profile = CustomProfile.objects.get(custom_user=request.user)
-        serializer = RetrieveUserSerializer(custom_profile, context={'user': request.user})
+        serializer = RetrieveProfileSerializer(custom_profile, context={'user': request.user})
         return Response(serializer.data, status=status.HTTP_200_OK)

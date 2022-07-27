@@ -7,5 +7,5 @@ from .views import ProfileViewSet
 
 urlpatterns = [
     # path('', include(router.urls)),
-    path('profile/', ProfileViewSet.as_view())
+    path('', ProfileViewSet.as_view())
 ]
