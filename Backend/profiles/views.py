@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
-class ProfileViewSet(RetrieveUpdateAPIView):
+class ProfileView(RetrieveUpdateAPIView):
     permission_classes = [IsAuthenticated]
 
     def update(self, request, *args, **kwargs):

@@ -3,7 +3,6 @@ from django_countries.fields import CountryField
 from accounts.models import CustomUser
 from django.db import models
 
-
 GENDER_CHOICES = {
     ('M', 'Male'),
     ('F', 'Female')
@@ -16,7 +15,7 @@ ADDRESS_CHOICES = {
 
 
 class CustomProfile(models.Model):
-    custom_user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    custom_user = models.OneToOneField(CustomUser, related_name='custom_user', on_delete=models.CASCADE)
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=40)
     birth_date = models.DateField(default=None, null=True)
