@@ -4,12 +4,27 @@ from .models import OrderItem
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    book_id = models.PositiveIntegerField()
+    total_order_price = serializers.Field(required=False)
 
     class Meta:
         model = OrderItem
         fields = ("id",
-                  "book_id",
+                  "book",
                   "quantity",
                   "book_cover",
-                  "book_language")
+                  "book_language",
+                  "total_order_price")
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    total_price = serializers.Field(required=False)
+
+    class Meta:
+        model = OrderItem
+        fields = ("id",
+                  "order_date",
+                  "ordered",
+                  "status",
+                  "shipping_address",
+                  "billing_address",
+                  "total_price")

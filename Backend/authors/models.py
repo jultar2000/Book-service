@@ -6,10 +6,10 @@ from django_countries.fields import CountryField
 
 
 class Author(models.Model):
-    first_name = models.CharField(max_length=40)
-    last_name = models.CharField(max_length=40)
+    first_name = models.CharField(max_length=40, null=True)
+    last_name = models.CharField(max_length=40, null=True)
     birth_date = models.DateField(null=True)
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, null=True)
-    country = CountryField(multiple=False)
+    country = CountryField(multiple=False, null=True)
     image = VersatileImageField(ppoi_field="image_ppoi", null=True)
     image_ppoi = PPOIField()

@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import OrderItemView
+from .views import ListCreateItemView, UpdateItemView
 
 urlpatterns = [
-    path('', OrderItemView.as_view())
+    path('', ListCreateItemView.as_view()),
+    path(r'<int:id>/', UpdateItemView.as_view())
 ]
