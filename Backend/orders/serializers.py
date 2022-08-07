@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from django.db import models
-from .models import OrderItem
+from .models import OrderItem, Order
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    total_order_price = serializers.Field(required=False)
+    total_order_price = serializers.ReadOnlyField()
 
     class Meta:
         model = OrderItem
@@ -17,10 +17,10 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    total_price = serializers.Field(required=False)
+    total_price = serializers.ReadOnlyField()
 
     class Meta:
-        model = OrderItem
+        model = Order
         fields = ("id",
                   "order_date",
                   "ordered",
