@@ -10,6 +10,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
         model = OrderItem
         fields = ("id",
                   "book",
+                  "order",
                   "quantity",
                   "book_cover",
                   "book_language",
