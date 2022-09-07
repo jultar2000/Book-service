@@ -12,3 +12,4 @@ django-countries
 django-storages
 boto3
 django-extensions
+flake8-django

@@ -3,21 +3,21 @@ from profiles.models import Address
 from accounts.models import CustomUser
 from books.models import Book
 
-STATUS_CHOICES = {
+STATUS_CHOICES = (
     ('P', 'BEING PREPARED'),
-    ('S', 'BEING DELIVERED'),
-    ('R', 'RECEIVED')
-}
+    ('D', 'SENT'),
+    ('R', 'RECEIVED'),
+)
 
-COVER_CHOICES = {
+COVER_CHOICES = (
     ('H', 'HARD'),
-    ('S', 'SOFT')
-}
+    ('S', 'SOFT'),
+)
 
-BOOK_LANGUAGE = {
+BOOK_LANGUAGE = (
     ('E', 'ENGLISH'),
-    ('P', 'POLISH')
-}
+    ('P', 'POLISH'),
+)
 
 
 class Order(models.Model):
