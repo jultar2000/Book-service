@@ -19,7 +19,7 @@ class Book(models.Model):
     description = models.CharField(max_length=600)
     genre = models.CharField(choices=GENRE_CHOICES, max_length=3)
     price = models.FloatField(null=True, validators=[MinValueValidator(0)])
-    discount_percentage = models.PositiveIntegerField(null=True, validators=[MaxValueValidator(100)])
+    discount_percentage = models.PositiveIntegerField(default=1, validators=[MaxValueValidator(100)])
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True)
     image = VersatileImageField(ppoi_field='image_ppoi', null=True)
     image_ppoi = PPOIField()

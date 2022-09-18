@@ -34,8 +34,8 @@ class Order(models.Model):
     def total_order_price(self):
         total_price = 0
         for item in self.items.all():
-            total_price += item.get_total_price()
-        return total_price
+            total_price += item.total_price
+        return float("{:.2f}".format(total_price))
 
 
 class OrderItem(models.Model):
@@ -43,9 +43,9 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE, null=True)
     book = models.ForeignKey(Book, related_name='book', on_delete=models.CASCADE, null=True)
     quantity = models.PositiveIntegerField(default=1)
-    book_cover = models.CharField(choices=COVER_CHOICES, max_length=1, default=None)
-    book_language = models.CharField(choices=BOOK_LANGUAGE, max_length=1, default=None)
+    book_cover = models.CharField(choices=COVER_CHOICES, max_length=1)
+    book_language = models.CharField(choices=BOOK_LANGUAGE, max_length=1)
 
     @property
     def total_price(self):
-        return self.quantity * self.book.current_price
+        return float("{:.2f}".format(self.quantity * self.book.current_price))
